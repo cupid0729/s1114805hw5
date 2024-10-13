@@ -1,0 +1,56 @@
+﻿@model CoreMVC002.Models.XAXBEngine
+
+<h2>1A2B猜數字遊戲</h2>
+
+<h2>@ViewBag.Title</h2>
+
+<form asp-action="Guess" method="post">
+    <label for="userGuess">輸入你的猜測 (四位數字):</label>
+    <input type="text" id="userGuess" name="userGuess" maxlength="4" pattern="\d{4}" required />
+    <input type="submit" value="提交" />
+</form>
+
+@if (Model.Guess != null)
+
+{
+    <p>猜測的數字是: <strong>@Model.Guess</strong></p>
+    <p>結果: <strong>@Model.Result</strong></p>
+}
+
+@if (ViewBag.GameOver != null)
+
+{
+    <h3>@ViewBag.GameOver</h3>
+}
+
+@if (ViewBag.Error != null)
+
+{
+    <p style="color:red;">@ViewBag.Error</p>
+}
+
+<h3>猜測歷史</h3>
+<ul>
+    @foreach (var item in ViewBag.GuessHistory)
+
+    {
+        <li>@item</li>
+    }
+</ul>
+
+<p>你已經猜測了 @ViewBag.GuessCount 次</p>
+
+@if (ViewBag.RestartPrompt != null && ViewBag.RestartPrompt == true)
+
+{
+    <h3>再玩一次？</h3>
+    <form asp-action="ResetGame" method="post">
+        <input type="submit" value="是" />
+    </form>
+
+}
+
+
+<h2>@ViewBag.Title</h2>
+
+<p>@ViewBag.Message</p>
